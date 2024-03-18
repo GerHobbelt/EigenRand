@@ -758,7 +758,12 @@ std::map<std::string, double> test_rng(Rng&& rng, size_t size, const std::string
 	return ret;
 }
 
-int main(int argc, char** argv)
+
+#if defined(BUILD_MONOLITHIC)
+#define main eigrand_benchmark_main
+#endif
+
+int main(int argc, const char** argv)
 {
 	size_t size = 1000, repeat = 20;
 

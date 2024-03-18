@@ -145,7 +145,12 @@ std::map<std::string, double> test_eigenrand(size_t size, const std::string& suf
 	return ret;
 }
 
-int main(int argc, char** argv)
+
+#if defined(BUILD_MONOLITHIC)
+#define main eigrand_benchmark_mv_main
+#endif
+
+int main(int argc, const char** argv)
 {
 	size_t size = 10000, repeat = 20;
 

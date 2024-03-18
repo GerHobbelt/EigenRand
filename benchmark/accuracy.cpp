@@ -624,7 +624,12 @@ std::map<std::string, double> test_cpp11_disc(size_t size, size_t step, size_t s
 	return ret;
 }
 
-int main(int argc, char** argv)
+
+#if defined(BUILD_MONOLITHIC)
+#define main eigrand_accuracy_main
+#endif
+
+int main(int argc, const char** argv)
 {
 	size_t size = 32768, step = size * 8, repeat = 50;
 
