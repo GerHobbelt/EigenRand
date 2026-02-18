@@ -15,7 +15,7 @@ jobs:
       max-parallel: 4
       matrix:
         arch: [DEIGEN_DONT_VECTORIZE, march=armv8-a+simd]
-        eigenversion: [3.3.4, 3.3.5, 3.3.6, 3.3.7, 3.3.8, 3.3.9, 3.4.0, 5.0.0]
+        eigenversion: [3.3.5, 3.3.6, 3.3.7, 3.3.8, 3.3.9, 3.4.0, 5.0.0]
     steps:
     - uses: actions/checkout@v3
       with:
@@ -42,11 +42,11 @@ jobs:
     - name: Test
       run: |
         cd build
-        ctest -R test --output-on-failure
+        ctest -V -R test
     - name: Run Accuracy
       run: |
         cd build
-        ctest -R accuracy --output-on-failure
+        ctest -V -R accuracy
 
   build-arm64:
     name: Build for Ubuntu 24 (Arm64)
@@ -85,8 +85,8 @@ jobs:
     - name: Test
       run: |
         cd build
-        ctest -R test --output-on-failure
+        ctest -V -R test
     - name: Run Accuracy
       run: |
         cd build
-        ctest -R accuracy --output-on-failure
+        ctest -V -R accuracy

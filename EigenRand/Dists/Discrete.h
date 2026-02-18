@@ -2,10 +2,10 @@
  * @file Discrete.h
  * @author bab2min (bab2min@gmail.com)
  * @brief 
- * @version 0.5.1
- * @date 2024-09-08
+ * @version 0.6.0
+ * @date 2026-01-31
  *
- * @copyright Copyright (c) 2020-2024
+ * @copyright Copyright (c) 2020-2026
  * 
  */
 
@@ -692,8 +692,6 @@ namespace Eigen
 				}
 			}
 
-// Vectorized packetOp for NEON is not supported
-#ifndef EIGEN_VECTORIZE_NEON
 			template<typename Packet, typename Rng>
 			EIGEN_STRONG_INLINE const Packet packetOp(Rng&& rng)
 			{
@@ -778,7 +776,6 @@ namespace Eigen
 	#endif
 				}
 			}
-#endif
 		};
 
 		template<typename> class BinomialGen;
@@ -1946,16 +1943,6 @@ namespace Eigen
 		}
 	}
 
-#ifdef EIGEN_VECTORIZE_NEON
-	namespace internal
-	{
-		template<typename _Scalar, typename Urng, bool _mutable>
-		struct functor_traits<scalar_rng_adaptor<Rand::DiscreteGen<_Scalar, double>, _Scalar, Urng, _mutable> >
-		{
-			enum { Cost = HugeCost, PacketAccess = 0, IsRepeatable = false };
-		};
-	}
-#endif
 }
 
 #endif

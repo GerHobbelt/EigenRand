@@ -2,10 +2,10 @@
  * @file MorePacketMath.h
  * @author bab2min (bab2min@gmail.com)
  * @brief
- * @version 0.5.1
- * @date 2024-09-08
+ * @version 0.6.0
+ * @date 2026-01-31
  *
- * @copyright Copyright (c) 2020-2024
+ * @copyright Copyright (c) 2020-2026
  *
  */
 
@@ -305,6 +305,30 @@ namespace Eigen
 			t[2] = addr[u[2]];
 			t[3] = addr[u[3]];
 			return vld1q_f32(t);
+		}
+
+		template<>
+		EIGEN_STRONG_INLINE Packet2d pgather<Packet4i>(const double* addr, const Packet4i& index, bool upperhalf)
+		{
+			int32_t u[4];
+			vst1q_s32(u, index);
+			double t[2];
+			if (upperhalf)
+			{
+				t[0] = addr[u[2]];
+				t[1] = addr[u[3]];
+			}
+			else
+			{
+				t[0] = addr[u[0]];
+				t[1] = addr[u[1]];
+			}
+			return vld1q_f64(t);
+		}
+
+		EIGEN_STRONG_INLINE Packet4i combine_low32(const Packet4i& a, const Packet4i& b)
+		{
+			return vuzp1q_s32(a, b);
 		}
 
 		template<>
